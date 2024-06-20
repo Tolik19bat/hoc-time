@@ -27,8 +27,9 @@ function DateTimePretty(Component) {
     return <Component {...props} date={relativeDate} />; // Передаем преобразованную дату в DateTime
   };
 
+  // Определяем propTypes для обёрнутого компонента.
   WrappedComponent.propTypes = {
-    date: PropTypes.string.isRequired, // Определяем, что date - обязательная строка
+    date: PropTypes.string.isRequired, // Определяем, что date - обязательный пропс типа string.
   };
 
   return WrappedComponent;

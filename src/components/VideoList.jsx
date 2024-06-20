@@ -1,29 +1,21 @@
-import DateTime from './DateTime';
-import DateTimePretty from './DateTimePretty';
+import PropTypes from 'prop-types';
+import Video from './Video';
 
-// Оборачиваем компонент DateTime в HOC DateTimePretty
-const DateTimePrettyComponent = DateTimePretty(DateTime);
-
-// Основной компонент для отображения списка видеозаписей
-function VideoList() {
-  // Список видеозаписей с датами публикации
-  const videos = [
-    { id: 1, date: '2024-06-20 16:25:10', title: 'Video 1' },
-    { id: 2, date: '2024-06-20 13:15:10', title: 'Video 2' },
-    { id: 3, date: '2024-06-17 12:15:10', title: 'Video 3' }
-  ];
-
-  return (
-    <div>
-      {videos.map(video => (
-        // Для каждой видеозаписи создаем блок с заголовком и датой публикации
-        <div key={video.id}>
-          <h3>{video.title}</h3>
-          <DateTimePrettyComponent date={video.date} />
-        </div>
-      ))}
-    </div>
-  );
+// Компонент VideoList отображает список видеозаписей.
+function VideoList(props) {
+  return props.list.map(item => (
+    <Video key={item.url} url={item.url} date={item.date} />
+  ));
 }
+
+// Определяем propTypes для компонента VideoList.
+VideoList.propTypes = {
+  list: PropTypes.arrayOf(
+    PropTypes.shape({
+      url: PropTypes.string.isRequired, // url - обязательный пропс типа string.
+      date: PropTypes.string.isRequired, // date - обязательный пропс типа string.
+    })
+  ).isRequired, // list - обязательный пропс типа array.
+};
 
 export default VideoList;
